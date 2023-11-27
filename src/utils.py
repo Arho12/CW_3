@@ -1,5 +1,7 @@
 import json
 
+from src.models import Operation
+
 
 def load_operations(path):
     """
@@ -9,3 +11,23 @@ def load_operations(path):
     """
     with open(path, 'r', encoding='utf-8') as file:
         return json.load(file)
+
+
+def get_instances(operations):
+    """
+    Создает экземпляры класса Operation
+    """
+    operations_instances = []
+    for operation in operations:
+        if operation:
+            operations_instance = Operation(
+                pk=operation["id"],
+                date=operation["date"],
+                state=operation["state"],
+                operation_amount=operation["operationAmount"],
+                description=operation["description"],
+                from_=operation.get("from", ""),
+                to=operation["to"],
+            )
+            operations_instances.append(operations_instance)
+    return operations_instances
