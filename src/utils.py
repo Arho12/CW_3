@@ -31,3 +31,14 @@ def get_instances(operations):
             )
             operations_instances.append(operations_instance)
     return operations_instances
+
+
+def get_executed_operations(operations):
+    """
+    Функция для получения выполненных операций
+    """
+    executed_operation = []
+    for operation in operations:
+        if operation.state == "EXECUTED":
+            executed_operation.append(operation)
+    return executed_operation
