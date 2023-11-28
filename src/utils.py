@@ -1,5 +1,4 @@
 import json
-
 from src.models import Operation
 
 
@@ -17,20 +16,20 @@ def get_instances(operations):
     """
     Создает экземпляры класса Operation
     """
-    operations_instances = []
+    operation_instances = []
     for operation in operations:
         if operation:
-            operations_instance = Operation(
+            operation_instance = Operation(
                 pk=operation["id"],
-                date=operation["date"],
                 state=operation["state"],
+                date=operation["date"],
                 operation_amount=operation["operationAmount"],
                 description=operation["description"],
                 from_=operation.get("from", ""),
                 to=operation["to"],
             )
-            operations_instances.append(operations_instance)
-    return operations_instances
+            operation_instances.append(operation_instance)
+    return operation_instances
 
 
 def get_executed_operations(operations):
@@ -42,3 +41,7 @@ def get_executed_operations(operations):
         if operation.state == "EXECUTED":
             executed_operation.append(operation)
     return executed_operation
+
+
+def sort_operations_by_date(operations):
+    return sorted(operations, key=lambda operation: operation.date, reverse=True)

@@ -13,7 +13,8 @@ class Operation:
 
     def covert_date(self, date):
         iso_date = datetime.fromisoformat(date)
-        return iso_date.strftime("%d.%m.%Y")
+        str_date = datetime.strftime(iso_date, "%d.%m.%Y")
+        return datetime.strptime(str_date, "%d.%m.%Y")
 
     def covert_payment(self, info_payment):
         if info_payment:
@@ -28,3 +29,8 @@ class Operation:
                 info_list.append(num_payment)
             return " ".join(info_list)
         return ""
+
+    def __str__(self):
+        return (f"{datetime.strftime(self.date, '%d.%m.%Y')} {self.description}\n"
+                f"{self.from_} -> {self.to}\n"
+                f"{self.operation_amount['amount']} {self.operation_amount['currency']['name']}")
